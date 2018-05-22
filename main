@@ -16,7 +16,7 @@ canvas.pack(side='top')
 
 ########################################################################################################################
 
-btn_control = Button(root, text='off', bg='#FF0000')
+btn_control = Button(root, text='off', background='#FF0000')
 btn_control.place(x=5, y=60)
 
 btn_sin = Button(root, text='sin')
@@ -93,17 +93,45 @@ btn_answer.place(x=225, y=280)
 
 ########################################################################################################################
 
-#def Plus():
+def Plus():
+    if working:
+        global number_on_field
+        global number_in_mind
+        global action
+        number_in_mind = number_on_field
+        number_on_field = ''
+        canvas.delete('all')
+        action = 'plus'
 
+def Minus():
+    if working:
+        global number_on_field
+        global number_in_mind
+        global action
+        number_in_mind = number_on_field
+        number_on_field = ''
+        canvas.delete('all')
+        action = 'minus'
 
-#def Minus():
+def Multiply():
+    if working:
+        global number_on_field
+        global number_in_mind
+        global action
+        number_in_mind = number_on_field
+        number_on_field = ''
+        canvas.delete('all')
+        action = 'multiply'
 
-
-#def Multiply():
-
-
-#def Devide():
-
+def Devide():
+    if working:
+        global number_on_field
+        global number_in_mind
+        global action
+        number_in_mind = number_on_field
+        number_on_field = ''
+        canvas.delete('all')
+        action = 'devide'
 
 def Logorithm():
     global working
@@ -116,11 +144,25 @@ def Logorithm():
         canvas.create_text(260, 25, width=250, anchor=E, fill="white", text=number_on_field)
 
 
-#def Cosinus():
+def Cosinus():
+    global working
+    if working:
+        global number_on_field
+        number_on_field = str(math.cos(float(number_on_field)))
+        if float(number_on_field) == int(float(number_on_field)):
+            number_on_field = int(float(number_on_field))
+        canvas.delete('all')
+        canvas.create_text(260, 25, width=250, anchor=E, fill="white", text=number_on_field)
 
-
-#def Sinus():
-
+def Sinus():
+    global working
+    if working:
+        global number_on_field
+        number_on_field = str(math.sin(float(number_on_field)))
+        if float(number_on_field) == int(float(number_on_field)):
+            number_on_field = int(float(number_on_field))
+        canvas.delete('all')
+        canvas.create_text(260, 25, width=250, anchor=E, fill="white", text=number_on_field)
 
 def Control():
     global working
@@ -134,11 +176,20 @@ def Control():
         action = ''
         number_in_mind = ''
         btn_control['text'] = 'off'
-        btn_control['bg'] = '#FF0000'
+        btn_control['background'] = '#FF0000'
     else:
         btn_control['text'] = 'on'
-        btn_control['bg'] = '#00FF00'
+        btn_control['background'] = '#00FF00'
     working = 1 - working
+
+def Clear():
+    canvas.delete('all')
+    global number_on_field
+    global action
+    global number_in_mind
+    number_on_field = ''
+    action = ''
+    number_in_mind = ''
 
 def Pi():
     global working
@@ -156,11 +207,25 @@ def E_num():
         canvas.delete('all')
         canvas.create_text(260, 25, width=250, anchor=E, fill="white", text=number_on_field)
 
-#def Power():
+def Power():
+    if working:
+        global number_on_field
+        global number_in_mind
+        global action
+        number_in_mind = number_on_field
+        number_on_field = ''
+        canvas.delete('all')
+        action = 'power'
 
-
-#def Root():
-
+def Root():
+    if working:
+        global number_on_field
+        global number_in_mind
+        global action
+        number_in_mind = number_on_field
+        number_on_field = ''
+        canvas.delete('all')
+        action = 'root'
 
 def One():
     global working
@@ -250,19 +315,43 @@ def Point():
         canvas.delete('all')
         canvas.create_text(260, 25, width=250, anchor=E, fill="white", text=number_on_field)
 
+def Answer():
+    global working
+    global number_on_field
+    global number_in_mind
+    global  action
+    if working:
+        if action == 'plus':
+            number_on_field = float(number_in_mind) + float(number_on_field)
+        elif action == 'minus':
+            number_on_field = float(number_in_mind) - float(number_on_field)
+        elif action == 'multiply':
+            number_on_field = float(number_in_mind) * float(number_on_field)
+        elif action == 'devide':
+            number_on_field = float(number_in_mind) / float(number_on_field)
+        elif action == 'power':
+            number_on_field = float(number_in_mind) ** float(number_on_field)
+        else:
+            number_on_field = float(number_in_mind) ** (1 / float(number_on_field))
+        if float(number_on_field) == int(float(number_on_field)):
+            number_on_field = int(float(number_on_field))
+        number_on_field = str(number_on_field)
+        number_in_mind = ''
+        canvas.delete('all')
+        canvas.create_text(260, 25, width=250, anchor=E, fill="white", text=number_on_field)
 
 ########################################################################################################################
 
 
 btn_control.bind('<Button-1>', lambda event: Control())
 
-btn_sin.bind('<Button-1>', lambda event: print("OK"))
+btn_sin.bind('<Button-1>', lambda event: Sinus())
 
-btn_cos.bind('<Button-1>', lambda event: print("OK"))
+btn_cos.bind('<Button-1>', lambda event: Cosinus())
 
 btn_ln.bind('<Button-1>', lambda event: Logorithm())
 
-btn_devision.bind('<Button-1>', lambda event: print("OK"))
+btn_devision.bind('<Button-1>', lambda event: Devide())
 
 btn_pi.bind('<Button-1>', lambda event: Pi())
 
@@ -272,7 +361,7 @@ btn_eight.bind('<Button-1>', lambda event: Eight())
 
 btn_nine.bind('<Button-1>', lambda event: Nine())
 
-btn_multiply.bind('<Button-1>', lambda event: print("OK"))
+btn_multiply.bind('<Button-1>', lambda event: Multiply())
 
 btn_e.bind('<Button-1>', lambda event: E_num())
 
@@ -282,9 +371,9 @@ btn_five.bind('<Button-1>', lambda event: Five())
 
 btn_six.bind('<Button-1>', lambda event: Six())
 
-btn_minus.bind('<Button-1>', lambda event: print("OK"))
+btn_minus.bind('<Button-1>', lambda event: Minus())
 
-btn_power.bind('<Button-1>', lambda event: print("OK"))
+btn_power.bind('<Button-1>', lambda event: Power())
 
 btn_one.bind('<Button-1>', lambda event: One())
 
@@ -292,14 +381,16 @@ btn_two.bind('<Button-1>', lambda event: Two())
 
 btn_three.bind('<Button-1>', lambda event: Three())
 
-btn_plus.bind('<Button-1>', lambda event: print("OK"))
+btn_plus.bind('<Button-1>', lambda event: Plus())
 
-btn_root.bind('<Button-1>', lambda event: print("OK"))
+btn_root.bind('<Button-1>', lambda event: Root())
+
+btn_clear.bind('<Button-1>', lambda event: Clear())
 
 btn_zero.bind('<Button-1>', lambda event: Zero())
 
 btn_point.bind('<Button-1>', lambda event: Point())
 
-btn_answer.bind('<Button-1>', lambda event: print("OK"))
+btn_answer.bind('<Button-1>', lambda event: Answer())
 
 root.mainloop()
