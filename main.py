@@ -393,4 +393,5 @@ btn_point.bind('<Button-1>', lambda event: Point())
 
 btn_answer.bind('<Button-1>', lambda event: Answer())
 
+
 root.mainloop()
