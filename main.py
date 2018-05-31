@@ -328,13 +328,17 @@ def Answer():
         elif action == 'multiply':
             number_on_field = float(number_in_mind) * float(number_on_field)
         elif action == 'devide':
-            number_on_field = float(number_in_mind) / float(number_on_field)
+            if number_on_field == '0':
+                number_on_field = 'ERROR'
+            else:
+              number_on_field = float(number_in_mind) / float(number_on_field)
         elif action == 'power':
             number_on_field = float(number_in_mind) ** float(number_on_field)
         else:
             number_on_field = float(number_in_mind) ** (1 / float(number_on_field))
-        if float(number_on_field) == int(float(number_on_field)):
-            number_on_field = int(float(number_on_field))
+        if '.' in str(number_on_field):
+            if float(number_on_field) == int(float(number_on_field)):
+                number_on_field = int(float(number_on_field))
         number_on_field = str(number_on_field)
         number_in_mind = ''
         canvas.delete('all')
@@ -392,6 +396,5 @@ btn_zero.bind('<Button-1>', lambda event: Zero())
 btn_point.bind('<Button-1>', lambda event: Point())
 
 btn_answer.bind('<Button-1>', lambda event: Answer())
-
 
 root.mainloop()
